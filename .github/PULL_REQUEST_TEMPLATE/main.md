@@ -15,5 +15,4 @@
 ## Integration checklist
 - [ ] No secrets or credentials added
 - [ ] Migrations reviewed (if any)
-- [ ] Rollback plan noted
 - [ ] Monitoring/alerts considered
