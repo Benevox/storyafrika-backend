@@ -1,0 +1,32 @@
+name: CI/CD (main)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings
+        run: python src/manage.py test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push'
+    environment: production
+    steps:
+      - name: Deploy
+        run: echo "Deploy to production not configured"
